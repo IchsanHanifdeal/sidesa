@@ -20,7 +20,7 @@
 <body class="font-sans text-white bg-[#2e319a] h-screen flex justify-evenly flex-col antialiased px-3 py-2">
     <section>
         <h1 class="text-5xl text-center font-extrabold">SIDESA</h1>
-        <h1 class="text-sm text-center font-extrabold">Sistem Informasi Desa</h1>
+        <h1 class="text-sm text-center font-extrabold">Sistem Informasi Desa </h1>
     </section>
 
     <section class="flex gap-2 flex-col items-center">
