@@ -8,7 +8,7 @@ input::-webkit-inner-spin-button {
     margin: 0;
 }
 
-input[type=number]{
+input[type="number"] {
     -moz-appearance: textfield;
 }
 
@@ -17,9 +17,38 @@ body {
 }
 
 img {
-  @apply select-none;
+    @apply select-none;
 }
 
-textarea, input {
-  @apply !ring-0 border-gray-300 !outline-none;
+textarea,
+input {
+    @apply !ring-0 border-gray-300 !outline-none;
+}
+
+.hide-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+@layer components {
+    .card {
+        @apply max-h-[300px] md:max-h-[400px] overflow-y-scroll;
+        & > h1 {
+            @apply max-sm:text-sm max-md:text-base;
+        }
+
+        & > h1 > svg {
+            @apply max-md:size-5;
+        }
+
+        div {
+            img.rounded-full {
+                @apply max-[400px]:size-6 max-md:size-7;
+            }
+
+            h1 {
+                @apply max-md:!text-[13px];
+            }
+        }
+    }
 }

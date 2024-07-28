@@ -1,9 +1,10 @@
-<div class="flex flex-col max-lg:w-full w-[36rem] gap-4 overflow-y-auto">
+<div class="flex flex-col max-sm:mt-4 max-lg:w-full w-[36rem] gap-4 overflow-y-auto">
   <h2 class="pb-4 text-2xl font-bold border-b border-black">Ada Apa Hari Ini?</h2>
   <div class="flex gap-4 p-3 bg-white rounded-lg">
     <img class="flex-shrink-0 border rounded-full size-11" src="https://avatars.githubusercontent.com/u/93970726?v=4" alt="">
     <div class="flex flex-wrap w-full">
       <textarea class="w-full p-2 px-4 text-black bg-gray-50 rounded- placeholder:text-[15px] rounded-lg" placeholder="Apa yang anda pikirkan?"></textarea>
+      <img id="preview" class="flex-shrink-0 mt-3 border rounded-lg w-full max-h-[300px] object-cover" src="" alt="">
       <div class="flex items-center justify-between w-full mt-3">
         <div class="flex items-center gap-4">
           <button class="flex items-center gap-4">
@@ -27,7 +28,7 @@
       </div>
     </div>
   </div>
-  <div class="flex flex-col w-full gap-3">
+  <div class="flex flex-col w-full gap-2 sm:gap-3">
     @foreach (new SplFixedArray(6) as $item)
       <div class="flex flex-col w-full gap-3 p-3 text-black bg-white rounded-lg">
         <div class="flex gap-3">
@@ -43,18 +44,38 @@
         </p>
         <div class="flex justify-between w-full mt-2">
           <div class="flex gap-3">
-            <h1 class="flex items-center gap-2 text-[15px]">
+            <h1 class="flex items-center gap-2 text-[15px] cursor-pointer">
               <x-lucide-heart class="flex-shrink-0 size-5" />
               234
             </h1>
-            <h1 class="flex items-center gap-2 text-[15px]">
+            <h1 class="flex items-center gap-2 text-[15px] cursor-pointer">
               <x-lucide-message-square class="flex-shrink-0 size-5" />
               100
             </h1>
           </div>
-          <button class="text-center text-white bg-green-500 btn btn-xs">WhatsApp</button>
+          <a href="https://wa.me/6281234567890?text=Halo,+saya+tertarik+dengan+post+anda" target="_blank" class="text-center text-white bg-green-500 btn btn-xs">
+            WhatsApp
+          </a>
         </div>
       </div>
     @endforeach
   </div>
 </div>
+
+<script>
+  const foto = document.getElementById('foto');
+  const preview = document.getElementById('preview');
+  preview.style.display = 'none';
+
+  foto.addEventListener('change', function() {
+    const fileName = this.files[0];
+    blob = URL.createObjectURL(fileName);
+    preview.style.display = 'block';
+    preview.src = blob;
+  });
+
+  preview.addEventListener('click', function() {
+    preview.style.display = 'none';
+    blob = null;
+  })
+</script>
