@@ -274,7 +274,7 @@ class GroupController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->route('groups.index')->with('success', 'Berhasil bergabung dengan grup');
+        return redirect()->back()->with('success', 'Berhasil bergabung dengan grup');
     }
 
     public function leave($id)

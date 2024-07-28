@@ -219,7 +219,7 @@
                         const likeCountSpan = button.querySelector('.like-count');
                         likeCountSpan.textContent = data.like_count;
 
-                        // Toggle classes based on is_liked value
+                        
                         if (data.liked) {
                             button.classList.add('text-red-500');
                             button.classList.remove('text-black');
