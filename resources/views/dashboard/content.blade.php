@@ -59,7 +59,7 @@
             <img class="flex-shrink-0 border rounded-full size-9" src="https://ui-avatars.com/api/?name={{ $post->creator_name }}&color=7F9CF5&background=EBF4FF" />
           @endif
           <div class="flex flex-col text-sm">
-            <h1 class="font-semibold">{{ $post->creator_name }}</h1>
+            <a href="{{ route('profile.show', $post->creator_id) }}" class="font-semibold">{{ $post->creator_name }}</a>
             <p class="text-gray-500">
               @php
                 \Carbon\Carbon::setLocale('id');

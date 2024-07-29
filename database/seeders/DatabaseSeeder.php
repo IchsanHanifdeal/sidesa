@@ -57,5 +57,6 @@ class DatabaseSeeder extends Seeder
             'long' => 101.38130237564509,
             'password' => bcrypt('12345678'),
         ]);
+
     }
 }

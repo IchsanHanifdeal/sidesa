@@ -30,6 +30,7 @@ Route::get('/register-warga', function () {
 })->name('register-warga');
 
 Route::get('/dashboard', function (Request $request) {
+    $pengumuman = DB::table('pengumuman')->latest()->first();
     $id_desa = auth()->user()->id_desa;
 
     $anggotaDesa = DB::table('users')->where('id_desa', $id_desa)->get();
@@ -121,6 +122,7 @@ Route::get('/dashboard', function (Request $request) {
         'notification' => $notifications,
         'idGroup' => $idGroup,
         'posts' => $posts,
+        'pengumuman' => $pengumuman,
     ]);
 })->middleware(['auth'])->name('dashboard');
 
@@ -218,7 +220,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::put('/pengumuman/{id}', [PengumumanController::class, 'show'])->name('pengumuman.show');
+    Route::put('/pengumuman/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update');
 });
 
 require __DIR__ . '/auth.php';

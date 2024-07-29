@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pengumuman', function (Blueprint $table) {
             $table->id();
-            $table->varchar('file')->nullable();
+            $table->string('file')->nullable();
             $table->timestamps();
         });
     }
