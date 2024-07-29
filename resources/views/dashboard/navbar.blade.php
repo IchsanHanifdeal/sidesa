@@ -22,6 +22,12 @@
                 </a>
             </li>
             <li>
+                <a href="https://wa.me/+6287746986830?text=Halo Admin saya ingin membuat pengaduan" target="_blank" class="flex items-center gap-3">
+                    <x-lucide-headset class="flex-shrink-0 size-5" />
+                    Pengaduan
+                </a>
+            </li>
+            <li>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf
                     <a href="#" id="logoutBtn" class="flex items-center gap-3 cursor-pointer"

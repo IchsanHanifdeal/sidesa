@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -23,7 +25,7 @@ class PostController extends Controller
             })
             ->join('users', 'grup.id_creator', '=', 'users.id')
             ->where('grup.id_desa', auth()->user()->id_desa)
-            ->select('grup.id', 'grup.created_at','grup.group_name', 'grup.description', 'anggota_grup.status as is_member', 'grup.id_creator as id_creator', 'users.name as creator_name')
+            ->select('grup.id', 'grup.created_at', 'grup.group_name', 'grup.description', 'anggota_grup.status as is_member', 'grup.id_creator as id_creator', 'users.name as creator_name')
             ->orderBy('grup.created_at', 'desc')
             ->get();
 
@@ -94,12 +96,11 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
-        // get from url query
         $idGroup = $request->get('idGroup');
-
-        $user = auth()->user();
-
+        $user = Auth::user();
         $image = $request->file('image');
+        $fileName = null;
+
         if ($image) {
             $fileName = uniqid() . '.' . $image->getClientOriginalExtension();
             $image->storeAs('public/images', $fileName);
@@ -112,10 +113,27 @@ class PostController extends Controller
             'id_creator' => $user->id,
             'content' => $request->get('content'),
             'for_sale' => $request->get('for_sale') == 'on',
-            'photo' => $fileName ?? null,
+            'photo' => $fileName,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        if ($user->role === 'Admin') {
+            $users = DB::table('users')->where('id', '!=', $user->id)->get();
+
+            foreach ($users as $user) {
+                DB::table('notification')->insert([
+                    'name' => $user->name,
+                    'message' => 'Admin telah membuat postingan baru.',
+                    'to' => $user->id,
+                    'foto' => $user->image,
+                    'url' => '/posts/' . $request->get('post_id'),
+                    'read' => false,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
 
         return back()->with('success', 'Post berhasil dibuat');
     }
@@ -163,7 +181,8 @@ class PostController extends Controller
         return redirect()->route('posts.index')->with('success', 'Post berhasil dihapus');
     }
 
-    public function show(Request $request, $id) {
+    public function show(Request $request, $id)
+    {
         $notif_id = $request->get('notif_id');
         if ($notif_id) {
             DB::table('notification')->where('id', $notif_id)->update(['read' => 1]);
@@ -195,7 +214,7 @@ class PostController extends Controller
             ->exists();
 
 
-            $comments = DB::table('komentar')
+        $comments = DB::table('komentar')
             ->join('users', 'komentar.id_creator', '=', 'users.id')
             ->select('komentar.id', 'komentar.content', 'komentar.created_at', 'users.name as creator_name', 'users.image as creator_image')
             ->where('komentar.id_post', $id)

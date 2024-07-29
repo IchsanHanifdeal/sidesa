@@ -5,6 +5,18 @@
     $month = now()->format('M');
 @endphp
 
+<style>
+    .hidden {
+        display: none;
+    }
+
+    .modal {
+        z-index: 1000;
+    }
+
+    /* Add your other styles here */
+</style>
+
 <aside
     class="lg:sticky max-lg:grid grid-cols-2 max-lg:w-full flex flex-col w-[20rem] h-fit gap-2 sm:gap-3 overflow-y-auto top-4">
     {{-- KALENDER --}}
@@ -23,33 +35,41 @@
     {{-- NOTIFIKASI --}}
     <div
         class="flex flex-col w-full gap-4 py-4 text-white rounded-lg cursor-pointer hide-scroll card group bg-custom-blue">
-        <h1 class="flex items-center gap-3 px-4 text-xl font-semibold">
+        <a href="{{ route('notification.index') }}" target="_blank"
+            class="flex items-center gap-3 px-4 text-xl font-semibold">
             <x-lucide-bell class="flex-shrink-0 size-7" />
             <span class="">Notifikasi</span>
-        </h1>
+        </a>
         <div class="flex flex-col gap-1 px-2">
             @foreach ($notification as $notif)
                 <div
-                    class="flex w-full items-center max-[400px]:gap-2 gap-3 max-[400px]:p-2 p-3 overflow-hidden text-black bg-white rounded-lg">
+                    class="flex w-full items-center gap-3 max-[400px]:gap-2 p-3 max-[400px]:p-2 overflow-hidden text-black bg-white rounded-lg">
                     <img class="flex-shrink-0 border rounded-full size-9"
-                        src="{{ $notif->foto ? asset('storage/images/' . $$notif->foto) : 'https://ui-avatars.com/api/?name=' . urlencode($notif->name) . '&color=7F9CF5&background=EBF4FF' }}"
+                        src="{{ $notif->foto ? asset('storage/images/' . $notif->foto) : 'https://ui-avatars.com/api/?name=' . urlencode($notif->name) . '&color=7F9CF5&background=EBF4FF' }}"
                         alt="{{ $notif->name }}">
                     <div class="flex flex-col">
-                        <h1 class="max-[400px]:text-sm font-semibold line-clamp-1">{{ $notif->name }}</h1>
-                        <p class="max-[400px]:text-xs text-sm leading-tight line-clamp-1">
-                            Mengomentari Postingan Anda
+                        <h1 class="font-semibold line-clamp-1 max-[400px]:text-sm">{{ $notif->name }}</h1>
+                        <p class="text-sm leading-tight line-clamp-1 max-[400px]:text-xs">
+                            @if (strpos($notif->message, 'mengomentari') !== false)
+                                Mengomentari Postingan Anda
+                            @elseif (strpos($notif->message, 'admin telah membuat postingan baru') !== false)
+                                Admin telah membuat postingan baru
+                            @else
+                                {{ $notif->message }}
+                            @endif
                         </p>
                     </div>
                 </div>
             @endforeach
+
         </div>
     </div>
     {{-- ANGGOTA --}}
     <div class="flex flex-col w-full p-4 text-white rounded-lg cursor-pointer hide-scroll card group bg-custom-blue">
-        <h1 class="flex items-center gap-3 text-xl font-semibold">
+        <a href="{{ route('users.index') }}" target="_blank" class="flex items-center gap-3 text-xl font-semibold">
             <x-lucide-users-round class="flex-shrink-0 size-7" />
             <span class="">Anggota</span>
-        </h1>
+        </a>
         <div class="flex flex-wrap mt-4 overflow-y-auto avatar-group hide-scroll">
             @foreach ($users as $user)
                 <div class='cursor-pointer avatar'>

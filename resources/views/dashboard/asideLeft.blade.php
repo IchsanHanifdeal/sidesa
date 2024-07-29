@@ -3,10 +3,10 @@
     {{-- OBROLAN --}}
     <div
         class="flex flex-col w-full gap-4 py-4 text-white rounded-lg cursor-pointer hide-scroll card group bg-custom-blue">
-        <h1 class="flex items-center gap-3 px-4 text-xl font-semibold">
+        <a href="{{ route('groups.index')}}" target="_blank" class="flex items-center gap-3 px-4 text-xl font-semibold">
             <x-lucide-message-circle class="flex-shrink-0 size-7" />
             <span class="">Obrolan</span>
-        </h1>
+        </a>
         <div class="z-10 flex flex-col w-full gap-1 px-2">
             @foreach ($groups as $group)
                 <div class="flex w-full items-center gap-3 p-3 overflow-hidden text-black bg-white rounded-lg shadow-md">

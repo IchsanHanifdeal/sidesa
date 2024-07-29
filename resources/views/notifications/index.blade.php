@@ -54,9 +54,8 @@
                                 </div>
                             </td>
                             <td>
-                              <a 
-                              href="{{ $notif->url . "?notif_id=" . $notif->id }}"
-                                <span class="font-semibold">{{ $notif->name }}</span>
+                              <a href="{{ $notif->url . "?notif_id=" . $notif->id }}">
+                                {{-- <span class="font-semibold">{{ $notif->name }}</span> --}}
                                 {{ $notif->message  ?? '-'}}
                               </a>
                             </td>

@@ -1,8 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 use App\Http\Controllers\GrupController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -11,6 +11,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KomentarController;
 use App\Http\Controllers\PostLikeController;
+use App\Http\Controllers\PengumumanController;
 use App\Http\Controllers\AnggotaGrupController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RegisterWargaController;
@@ -214,6 +215,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get("/private-chat/{postId}", [OrderController::class, 'privateChat'])->name('private-chat');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::put('/pengumuman/{id}', [PengumumanController::class, 'show'])->name('pengumuman.show');
 });
 
 require __DIR__ . '/auth.php';
