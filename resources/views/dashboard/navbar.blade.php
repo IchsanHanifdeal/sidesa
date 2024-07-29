@@ -5,7 +5,7 @@
     <div class="dropdown dropdown-end">
         <div tabindex="0" role="button">
             @if (Auth::user()->image)
-                <img class="rounded-full h-8 w-8" src="{{ asset('storage/images/' . Auth::user()->image) }}" />
+                <img class="w-8 h-8 rounded-full" src="{{ asset('storage/images/' . Auth::user()->image) }}" />
             @else
                 <div class="w-12 rounded-full">
                     <img class="rounded-full"
