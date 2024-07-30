@@ -88,14 +88,13 @@ class PengumumanController extends Controller
                     'message' => 'Admin telah membuat pengumuman baru.',
                     'to' => $user->id,
                     'foto' => $user->image,
-                    'url' => '/pengumuman/' . ($pengumuman ? $pengumuman->id : DB::getPdo()->lastInsertId()),
+                    'url' => '/dashboard',
                     'read' => false,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ]);
             }
         }
-
 
         return redirect()->back()->with('success', 'Pengumuman berhasil diperbarui!');
     }
