@@ -10,7 +10,8 @@
                                 @if ($user->image)
                                     <img src="{{ asset('storage/images/' . $user->image) }}" alt="{{ $user->name }}" />
                                 @else
-                                    <img src="https://ui-avatars.com/api/?name={{ $user->name }}&color=7F9CF5&background=EBF4FF" alt="{{ $user->name }}" />
+                                    <img src="https://ui-avatars.com/api/?name={{ $user->name }}&color=7F9CF5&background=EBF4FF"
+                                        alt="{{ $user->name }}" />
                                 @endif
                             </div>
                         </div>
@@ -18,18 +19,23 @@
 
                         <table class="table w-full">
                             <tbody>
-                            <tr>
-                                <td><span class="text-sm text-white">NIK</span></td>
-                                <td><span class="text-sm text-white">{{ $user->nik }}</span></td>
-                            </tr>
-                            <tr>
-                                <td><span class="text-sm text-white">No. HP</span></td>
-                                <td><span class="text-sm text-white">{{ $user->no_hp }}</span></td>
-                            </tr>
-                            <tr>
-                                <td><span class="text-sm text-white">Alamat</span></td>
-                                <td><span class="text-sm text-white">{{ $user->alamat }}</span></td>
-                            </tr>
+                                <tr>
+                                    <td><span class="text-sm text-white">NIK</span></td>
+                                    <td><span class="text-sm text-white">{{ $user->nik }}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="text-sm text-white">No. HP</span></td>
+                                    <td><span class="text-sm text-white">{{ $user->no_hp }}</span></td>
+                                </tr>
+                                <tr>
+                                    <td><span class="text-sm text-white">Alamat</span></td>
+                                    <td><span class="text-sm text-white">{{ $user->alamat }}</span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div id="map_{{ $user->id }}" style="height: 400px; width: 100%;"></div>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
 
@@ -49,6 +55,30 @@
                         @endif
                     </div>
                 </div>
+                <script>
+                    var map = L.map('map_{{ $user->id }}', {
+                        layers: L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+                            maxZoom: 20,
+                            subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+                        })
+                    });
+
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+
+                    var currentUser = {
+                        lat: parseFloat('{{ $user->lat }}'),
+                        long: parseFloat('{{ $user->long }}'),
+                        name: '{{ $user->name }}'
+                    };
+
+                    map.setView([currentUser.lat, currentUser.long], 17);
+
+                    L.marker([currentUser.lat, currentUser.long]).addTo(map)
+                        .bindPopup('<b> Rumah ' + currentUser.name + '</b>')
+                        .openPopup();
+                </script>
             @endforeach
         </div>
     </div>

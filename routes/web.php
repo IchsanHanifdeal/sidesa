@@ -8,6 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KomentarController;
 use App\Http\Controllers\PostLikeController;
@@ -30,6 +31,7 @@ Route::get('/register-warga', function () {
 })->name('register-warga');
 
 Route::get('/dashboard', function (Request $request) {
+    $gambar_terbaru = DB::table('galeri')->latest()->first();
     $pengumuman = DB::table('pengumuman')->latest()->first();
     $id_desa = auth()->user()->id_desa;
 
@@ -123,6 +125,7 @@ Route::get('/dashboard', function (Request $request) {
         'idGroup' => $idGroup,
         'posts' => $posts,
         'pengumuman' => $pengumuman,
+        'gambar_terbaru' => $gambar_terbaru,
     ]);
 })->middleware(['auth'])->name('dashboard');
 
@@ -221,6 +224,13 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::put('/pengumuman/{id}', [PengumumanController::class, 'update'])->name('pengumuman.update');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get("/galeri", [GaleriController::class, 'index'])->name('galeri');
+    Route::get("/galeri/create", [GaleriController::class, 'create'])->name('galeri.create');
+    Route::post("/galeri/create", [GaleriController::class, 'store'])->name('galeri.store');
+    Route::delete("/galeri/{id}/delete", [GaleriController::class, 'destroy'])->name('galeri.destroy');
 });
 
 require __DIR__ . '/auth.php';

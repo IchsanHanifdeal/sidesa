@@ -1,5 +1,33 @@
-<aside
-    class="lg:sticky h-full max-lg:grid grid-cols-2 flex flex-col w-[24rem] max-lg:w-auto gap-2 sm:gap-3 overflow-y-auto top-4">
+<aside class="lg:sticky h-full max-lg:grid grid-cols-2 flex flex-col w-[24rem] max-lg:w-auto gap-2 sm:gap-3 overflow-y-auto top-4">
+    {{-- NOTIFIKASI --}}
+  <div class="flex flex-col w-full gap-4 py-4 text-white rounded-lg cursor-pointer hide-scroll card group bg-custom-blue">
+    <a href="{{ route('notification.index') }}" target="_blank" class="flex items-center gap-3 px-4 text-xl font-semibold">
+      <x-lucide-bell class="flex-shrink-0 size-7" />
+      <span class="">Notifikasi</span>
+    </a>
+    <div class="flex flex-col gap-1 px-2">
+      @foreach ($notification as $notif)
+        <div class="flex w-full items-center gap-3 max-[400px]:gap-2 p-3 max-[400px]:p-2 overflow-hidden text-black bg-white rounded-lg">
+          <img class="flex-shrink-0 border rounded-full size-9"
+            src="{{ $notif->foto ? asset('storage/images/' . $notif->foto) : 'https://ui-avatars.com/api/?name=' . urlencode($notif->name) . '&color=7F9CF5&background=EBF4FF' }}"
+            alt="{{ $notif->name }}">
+          <div class="flex flex-col">
+            <h1 class="font-semibold line-clamp-1 max-[400px]:text-sm">{{ $notif->name }}</h1>
+            <p class="text-sm leading-tight line-clamp-1 max-[400px]:text-xs">
+              @if (strpos($notif->message, 'mengomentari') !== false)
+                Mengomentari Postingan Anda
+              @elseif (strpos($notif->message, 'admin telah membuat postingan baru') !== false)
+                Admin telah membuat postingan baru
+              @else
+                {{ $notif->message }}
+              @endif
+            </p>
+          </div>
+        </div>
+      @endforeach
+
+    </div>
+  </div>
     {{-- OBROLAN --}}
     <div
         class="flex flex-col w-full gap-4 py-4 text-white rounded-lg cursor-pointer hide-scroll card group bg-custom-blue">
