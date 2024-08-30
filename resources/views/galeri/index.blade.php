@@ -1,12 +1,18 @@
 <x-noheader-layout>
     <div class="px-3 flex gap-2 flex-wrap">
         <div class="flex w-full justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Daftar Galeri</h2>
+            <div class="flex space-x-2">
+                <a href="{{ route('dashboard') }}"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-md">
+                    < </a>
+                        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Daftar Galeri</h2>
+            </div>
             @if (auth()->user()->role == 'Admin')
                 <a href="{{ route('galeri.create') }}"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-md">Tambahkan Foto
                     Baru</a>
             @endif
+
         </div>
     </div>
     <div class="px-4 py-8 flex flex-wrap gap-6 justify-center">

@@ -3,7 +3,12 @@
     <div class="py-5 px-3 flex gap-2 flex-wrap">
 
         <div class="flex w-full justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Notifikasi</h2>
+            <div class="flex space-x-2">
+                <a href="{{ route('dashboard') }}"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-md">
+                    < </a>
+                        <h2 class="font-semibold text-xl text-gray-800 leading-tight">Notifikasi</h2>
+            </div>
             <p class="bg-[#81c6d9] text-white rounded-full w-8 h-8 flex items-center justify-center">
                 @php
                     // count read = 0
@@ -54,14 +59,14 @@
                                 </div>
                             </td>
                             <td>
-                              <a href="{{ $notif->url . "?notif_id=" . $notif->id }}">
-                                {{-- <span class="font-semibold">{{ $notif->name }}</span> --}}
-                                {{ $notif->message  ?? '-'}}
-                              </a>
+                                <a href="{{ $notif->url . '?notif_id=' . $notif->id }}">
+                                    {{-- <span class="font-semibold">{{ $notif->name }}</span> --}}
+                                    {{ $notif->message ?? '-' }}
+                                </a>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
-</x-app-layout>
+        </x-app-layout>

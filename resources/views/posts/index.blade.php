@@ -1,5 +1,7 @@
 <x-noheader-layout>
     <div class="flex w-full gap-2 flex-wrap">
+        <a href="{{ route('dashboard') }}"
+            class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-md"><</a>
         <div class="mx-auto bg-white px-3 rounded-xl shadow-md overflow-hidden w-full">
             <div class="md:flex w-full">
                 <form method="post" enctype="multipart/form-data" action="{{ route('posts.store') }}" class="w-full p-4">
@@ -37,7 +39,7 @@
                         @csrf
                         <div class="flex gap-3 items-center">
                             <input type="file" id="image" name="image" accept="image/*" class="hidden">
-                           
+
                             <label for="image"
                                 class="flex gap-2 items-center cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg inline-block">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -96,8 +98,7 @@
                                 @endif
                             </div>
                             <div>
-                                <a 
-                                href="{{ route('profile.show', $post->creator_id) }}" class="font-semibold">
+                                <a href="{{ route('profile.show', $post->creator_id) }}" class="font-semibold">
                                     {{ $post->creator_name }}
                                 </a>
                                 <p class="text-gray-500 text-sm">
@@ -123,7 +124,7 @@
                             </a>
                         </div>
 
-                    
+
                         <div class="flex items-center justify-between w-full mt-3">
                             <div class="flex items-center justify-between mt-3">
                                 <div class="flex gap-3">
@@ -137,9 +138,8 @@
                                         </svg>
                                         <span class="like-count font-bold">{{ $post->like_count }}</span>
                                     </button>
-                                    <a 
-                                    href="{{ route('posts.show', $post->id) }}" 
-                                    class="text-sky-500 font-bold flex gap-1 items-center hover:text-blue-600">
+                                    <a href="{{ route('posts.show', $post->id) }}"
+                                        class="text-sky-500 font-bold flex gap-1 items-center hover:text-blue-600">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                             class="w-8 h-8">
                                             <path fill-rule="evenodd"
@@ -171,11 +171,14 @@
                                     <div class="row justify-content-center">
                                         <div class="col-md-6">
                                             @if ($post->for_sale)
-                                            @php 
-                                                $creator = App\Models\User::find($post->creator_id);
-                                                $customMessage = "Halo, saya tertarik dengan " . $post->content . ". Bolehkah saya bertanya lebih lanjut?";
-                                                $msg = "https://wa.me/{$creator->no_hp}?text={$customMessage}";
-                                            @endphp
+                                                @php
+                                                    $creator = App\Models\User::find($post->creator_id);
+                                                    $customMessage =
+                                                        'Halo, saya tertarik dengan ' .
+                                                        $post->content .
+                                                        '. Bolehkah saya bertanya lebih lanjut?';
+                                                    $msg = "https://wa.me/{$creator->no_hp}?text={$customMessage}";
+                                                @endphp
                                                 <a href="{{ $msg }}" target="_blank"
                                                     class="px-3 py-2 flex gap-2 items-center text-sm w-fit rounded-md bg-green-500 text-white">
                                                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1024px-WhatsApp.svg.png"
@@ -219,7 +222,7 @@
                         const likeCountSpan = button.querySelector('.like-count');
                         likeCountSpan.textContent = data.like_count;
 
-                        
+
                         if (data.liked) {
                             button.classList.add('text-red-500');
                             button.classList.remove('text-black');

@@ -1,7 +1,12 @@
 <x-noheader-layout>
     <div class="px-3 flex gap-2 flex-wrap">
         <div class="flex w-full justify-between items-center">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Daftar Grup</h2>
+            <div class="flex space-x-2">
+                <a href="{{ route('dashboard') }}"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-md">
+                    < </a>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Daftar Grup</h2>
+            </div>
             @if (auth()->user()->role == 'Admin')
                 <a href="{{ route('groups.create') }}"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded-md">Buat Grup Baru</a>
@@ -13,7 +18,7 @@
                 <div class="bg-white rounded-xl">
                     <a href="
                     {{ $group->status == 'Member' || $group->status == 'Admin' ? route('chats.index', [$group->group_id]) : '#' }}"
-                    target="_blank"
+                        target="_blank"
                         class="bg-white flex  justify-between text-black rounded-md p-4 transition duration-300 ease-in-out transform hover:-translate-y-1">
                         <div class="flex items-center mb-2">
                             <div class="w-12 h-12 bg-gray-300 rounded-full">
@@ -38,8 +43,7 @@
                         <form action="{{ route('groups.destroy', [$group->group_id]) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <button
-                                class="btn-error btn m-3">
+                            <button class="btn-error btn m-3">
                                 Hapus
                             </button>
                         </form>
@@ -62,8 +66,7 @@
                         @else
                             <form action="{{ route('groups.leave', [$group->group_id]) }}" method="POST">
                                 @csrf
-                                <button
-                                    class="btn btn-sm btn-error m-3">
+                                <button class="btn btn-sm btn-error m-3">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                         stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round"

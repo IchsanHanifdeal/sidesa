@@ -1,5 +1,12 @@
 <x-noheader-layout>
     <div class="px-4 max-w-7xl mx-auto">
+        <div class="flex w-full justify-between items-center">
+            <div class="flex space-x-2">
+                <a href="{{ route('dashboard') }}"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded-md"> < </a>
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Daftar Pengguna</h2>
+            </div>
+        </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <!-- Card Anggota Desa -->
             @foreach ($users as $user)
@@ -8,7 +15,8 @@
                         <div class="avatar mb-4">
                             <div class="w-24 rounded-full">
                                 @if ($user->image)
-                                    <img src="{{ asset('storage/images/' . $user->image) }}" alt="{{ $user->name }}" />
+                                    <img src="{{ asset('storage/images/' . $user->image) }}"
+                                        alt="{{ $user->name }}" />
                                 @else
                                     <img src="https://ui-avatars.com/api/?name={{ $user->name }}&color=7F9CF5&background=EBF4FF"
                                         alt="{{ $user->name }}" />
