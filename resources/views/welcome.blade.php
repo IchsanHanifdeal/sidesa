@@ -7,10 +7,10 @@
       </div>
 
       <div class="flex flex-col items-center w-full max-w-sm gap-2 mt-10">
-        <a href="{{ route('register') }}"
+        {{-- <a href="{{ route('register') }}"
           class="w-full bg-gradient-to-r from-blue-500 to-custom-blue hover:from-custom-blue hover:to-blue-500 text-white font-bold py-3 text-center rounded-[40px]">
           Daftar DESA
-        </a>
+        </a> --}}
         <a href="{{ route('register-warga') }}"
           class="w-full bg-gradient-to-r from-blue-500 to-custom-blue hover:from-custom-blue hover:to-blue-500 text-white font-bold py-3 text-center rounded-[40px]">
           Daftar Akun
